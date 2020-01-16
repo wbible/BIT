@@ -1,0 +1,116 @@
+package io;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Vector;
+import java.util.stream.Stream;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+public class ScoreForm extends JFrame implements ActionListener{
+	public static final int FRAME_WIDHT = 500;
+	public static final int FRAME_HEIGHT = 200;
+	
+	private ArrayList<ScoreDTO> dto = new ArrayList<ScoreDTO>();
+	private JTextField[] tf;
+	private JTable table;
+	private JButton btn_input, btn_output, btn_search, btn_desc, btn_save, btn_open;
+	private ScoreImpl si;
+	private TableModel model;
+	
+	public ScoreForm() {
+		si = new ScoreImpl(this);
+		
+		setTitle("숙제");
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		setBounds((int)((screen.getWidth()-FRAME_WIDHT)/2),(int)((screen.getHeight()-FRAME_HEIGHT)/2),
+				FRAME_WIDHT, FRAME_HEIGHT);
+		
+		Container con = getContentPane();
+		
+		String[] fieldName = {"학번", "이름", "국어", "영어", "수학"};
+		JLabel[] lb = new JLabel[fieldName.length]; 
+		tf = new JTextField[fieldName.length];
+		
+		JPanel p_main = new JPanel();
+		p_main.setLayout(new BorderLayout());
+		con.add("Center", p_main);
+		
+		// 왼쪽 입력 패널
+		JPanel p1 = new JPanel(); JPanel p2 = new JPanel();
+		p1.setLayout(new GridLayout(fieldName.length,2));
+		p2.setLayout(new BorderLayout());
+		p_main.add("West", p1); p_main.add("Center", p2);
+		
+		for(int i = 0; i < fieldName.length; i++) {
+			lb[i] = new JLabel(fieldName[i], JLabel.CENTER);
+			tf[i] = new JTextField();
+			tf[i].setPreferredSize(new Dimension(60, 15));
+			tf[i].setHorizontalAlignment(JTextField.CENTER);
+			p1.add(lb[i]);
+			p1.add(tf[i]);
+		}
+		
+		// 오른쪽 테이블
+		String[] field = {"학번", "이름", "국어", "영어", "수학", "총점", "평균"};
+		Vector<String> title = new Vector<String>();
+		Stream.of(field).forEach(s -> title.add(s));;
+		
+		model = new TableModel(title, 0);
+		table = new JTable(model);
+		JScrollPane scroll = new JScrollPane(table);
+		p2.add(scroll);
+		
+		// 하단 버튼
+		JPanel p_btn = new JPanel(); con.add("South", p_btn);
+		JButton[] btn_ar = {btn_input, btn_output, btn_search, btn_desc, btn_save, btn_open};
+		String[] btn_name = {"입력", "출력", "학번검색", "순위", "파일저장", "파일열기"};
+		for(int i = 0; i < btn_ar.length; i++) {
+			btn_ar[i] = new JButton(btn_name[i]);
+			btn_ar[i].addActionListener(this);
+			p_btn.add(btn_ar[i]);
+		}
+		
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+	
+
+	public TableModel getTableModel() {
+		return model;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		
+	}
+
+	public static void main(String[] args) {
+		new ScoreForm();
+	}
+}
+
+// --------------
+
+class TableModel extends DefaultTableModel{
+	
+	public TableModel(Vector<String> vector, int r) {
+		super(vector, r);
+	}
+	
+}

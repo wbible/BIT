@@ -1,0 +1,43 @@
+package swing;
+
+public class PersonDTO {
+	private String id, name, pwd, tel;
+
+	public PersonDTO(String id, String name, String pwd, String tel) {
+		this.id = id;
+		this.name = name;
+		this.pwd = pwd;
+		this.tel = tel;
+	}
+
+	public PersonDTO(String name2) {
+		this.name = name;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getPwd() {
+		return pwd;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof PersonDTO) {
+			PersonDTO dto = (PersonDTO) o;
+			System.out.println(dto.getName());
+			return name.equals(dto.getName()) ? true : false;
+		}
+		return false;
+	}
+	
+}

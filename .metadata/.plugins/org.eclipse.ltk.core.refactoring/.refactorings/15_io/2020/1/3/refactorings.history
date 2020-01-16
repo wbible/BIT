@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;btn_output&apos; in &apos;io.ScoreForm&apos; to &apos;btn_print&apos;&#x0D;&#x0A;- Original project: &apos;15_io&apos;&#x0D;&#x0A;- Original element: &apos;io.ScoreForm.btn_output&apos;&#x0D;&#x0A;- Renamed element: &apos;io.ScoreForm.btn_print&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;btn_output&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;io{ScoreForm.java[ScoreForm^btn_output" name="btn_print" references="true" setter="false" stamp="1578990248713" textual="false" version="1.0"/>
+</session>

@@ -1,0 +1,111 @@
+package thread;
+
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class Packman extends Frame implements KeyListener, Runnable{
+	private static final int FRAME_WIDTH = 500;
+	private static final int FRAME_HEIGHT = 500;
+	private static final int IMG_SIZE = 50;
+	private static final int MOVE = 10;
+	private Image img;
+	private int x, y, img_width, img_height, x_loc, y_loc;
+	
+	public Packman() {
+		// 프레임 설정
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		setBounds((int) ((screen.getWidth() - FRAME_WIDTH) / 2), (int) ((screen.getHeight() - FRAME_HEIGHT) / 2),
+				FRAME_WIDTH, FRAME_HEIGHT);
+		setResizable(false);
+		addKeyListener(this);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		// 이미지 불러오기
+		img = Toolkit.getDefaultToolkit().getImage("packman.jpg");
+		imgReset();
+		
+		// 스레드 생성
+		Thread t = new Thread(this);
+		t.start();
+		
+		setVisible(true);
+	}
+	
+	@Override
+	public void paint(Graphics g) {
+		g.drawImage(img, x_loc, y_loc, x_loc + IMG_SIZE, y_loc + IMG_SIZE,
+				x, y, img_width, img_height, this);
+	}
+
+	@Override
+	public void run() {
+		while(true) {
+			x_loc += 10;
+			Thread.sleep(500);
+			repaint();
+		}
+		
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) System.exit(0);
+		else if(e.getKeyCode() == KeyEvent.VK_LEFT) { // 왼쪽
+			imgSelect(0);
+			imgMove(MOVE * (-1), 0);
+		}else if(e.getKeyCode() == KeyEvent.VK_RIGHT) { // 오른쪽
+			imgSelect(2);
+			imgMove(MOVE, 0);
+		}else if(e.getKeyCode() == KeyEvent.VK_UP) { // 위쪽
+			imgSelect(4);
+			imgMove(0, MOVE * (-1));
+		}else if(e.getKeyCode() == KeyEvent.VK_DOWN) { // 아래쪽
+			imgSelect(6);
+			imgMove(0, MOVE);
+		}
+		
+	}
+	
+	public void imgSelect(int loc) {
+		x = 0 + (IMG_SIZE * loc);
+		y = 0;
+		img_width = x + IMG_SIZE;
+		img_height = IMG_SIZE;
+	}
+	
+	public void imgMove(int move_x, int move_y) {
+		x_loc += move_x;
+		y_loc += move_y;
+	}
+	
+	public void imgReset() {
+		x_loc = (int)(getWidth()+IMG_SIZE)/2;
+		y_loc = (int)(getHeight()+IMG_SIZE)/2;
+		imgSelect(2);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+	}
+
+	
+	public static void main(String[] args) {
+		new Packman();
+	}
+}

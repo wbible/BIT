@@ -1,0 +1,99 @@
+package collection;
+
+import java.text.DecimalFormat;
+
+//번호, 이름, 국어, 영어, 수학점수를 입력하여 총점과 평균
+public class SungJukDTO implements Comparable<SungJukDTO> {
+	private int id;
+	private String name;
+	private int kor, eng, math, total;
+	private double avg;
+	
+	public SungJukDTO() {
+		
+	}
+
+	public SungJukDTO(int id, String name, int kor, int eng, int math) {
+		this.id = id;
+		this.name = name;
+		this.kor = kor;
+		this.eng = eng;
+		this.math = math;
+	}
+	
+	public void setData(int id, String name, int kor, int eng, int math) {
+		this.id = id;
+		this.name = name;
+		this.kor = kor;
+		this.eng = eng;
+		this.math = math;
+	}
+	
+	public void calc() {
+		total = kor + eng + math;
+		avg = total / 3.0;
+	}
+	
+	
+	
+	@Override
+	public String toString() {
+		DecimalFormat df = new DecimalFormat("#.###");
+		return String.format("%d\t%s\t%d\t%d\t%d\t%d", id, name, kor, eng, math, total, df.format(avg));
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getKor() {
+		return kor;
+	}
+
+	public int getEng() {
+		return eng;
+	}
+
+	public int getMath() {
+		return math;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public double getAvg() {
+		return avg;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setKor(int kor) {
+		this.kor = kor;
+	}
+
+	public void setEng(int eng) {
+		this.eng = eng;
+	}
+
+	public void setMath(int math) {
+		this.math = math;
+	}
+
+	@Override
+	public int compareTo(SungJukDTO o) {
+		return name.compareTo(o.name);
+	}
+	
+	
+}

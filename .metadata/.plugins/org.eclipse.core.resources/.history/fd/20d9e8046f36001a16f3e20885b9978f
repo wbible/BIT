@@ -1,0 +1,24 @@
+package io;
+
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class ByteStream {
+
+	public static void main(String[] args) throws IOException {
+		FileInputStream fis = new FileInputStream("data.txt");
+		BufferedInputStream bis = new BufferedInputStream(fis);
+		
+		int data;
+		while(data != -1) {			
+			data = bis.read();
+			System.out.println((char)data);
+		}
+	}
+
+}
+
+// 파일 업로드 (JSP-잘 안 사용함, Spring)
+// 파일 다운로드

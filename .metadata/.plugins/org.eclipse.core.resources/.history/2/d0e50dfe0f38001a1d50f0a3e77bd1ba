@@ -1,0 +1,18 @@
+package network;
+
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class ProtocolClient {
+	private Socket socket;
+	
+	public ProtocolClient() throws UnknownHostException, IOException {
+		socket = new Socket("¼­¹öIP", 9500);
+		
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+}

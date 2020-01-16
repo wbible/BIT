@@ -1,0 +1,158 @@
+package thread;
+
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class Packman extends Frame implements KeyListener, Runnable{
+	private static final int FRAME_WIDTH = 500;
+	private static final int FRAME_HEIGHT = 500;
+	private static final int IMG_SIZE = 50;
+	private static final int MOVE = 10;
+	private static final int FOOD_SIZE = 20;
+	private Image img, food_img[];
+	private int img_x, img_y, sel, img_width, img_height, x, y, food_x[], food_y[];
+	private int mx, my;
+	
+	public Packman() {
+		// 프레임 설정
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		setBounds((int) ((screen.getWidth() - FRAME_WIDTH) / 2), (int) ((screen.getHeight() - FRAME_HEIGHT) / 2),
+				FRAME_WIDTH, FRAME_HEIGHT);
+		setResizable(false);
+		setTitle("팩맨 게임");
+		addKeyListener(this);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		// 팩맨 이미지 세팅
+		img = Toolkit.getDefaultToolkit().getImage("packman.jpg");
+		imgReset();
+		
+		// 먹이 이미지 세팅
+		int list_size = 5;
+		String[] img_list = new String[list_size];
+		for(int i = 0; i < list_size; i++) {
+			img_list[i] = "food" + (i+1) + ".png";
+		}
+		food_img = new Image[5];
+		food_x = new int[food_img.length];
+		food_y = new int[food_img.length];
+		for (int i = 0; i < food_img.length; i++) {
+			food_img[i] = Toolkit.getDefaultToolkit().getImage(img_list[(int)(Math.random()*list_size)]);
+			food_x[i] = (int) (Math.random() * (FRAME_WIDTH - FOOD_SIZE));
+			food_y[i]= (int) (Math.random() * (FRAME_HEIGHT - FOOD_SIZE)) + FOOD_SIZE;
+		}
+		
+		// 스레드 생성
+		Thread t = new Thread(this);
+		t.start();
+		
+		setVisible(true);
+	}
+	
+	@Override
+	public void paint(Graphics g) {
+		
+		if(sel % 2 == 0) sel++;
+		else sel--;
+		
+		g.drawImage(img, x, y, x + IMG_SIZE, y + IMG_SIZE,
+				img_x, img_y, img_width, img_height, this);		
+		for(int i = 0; i < food_img.length; i++) {
+			g.drawImage(food_img[i], food_x[i], food_y[i], this);
+		}
+		
+		
+		
+	}
+
+	@Override
+	public void run() {
+		while(true) {
+			x += mx;
+			y += my;
+			
+			if(x > FRAME_WIDTH) x = 0 - IMG_SIZE;
+			if(x < 0 - IMG_SIZE) x = FRAME_WIDTH;
+			if(y > FRAME_HEIGHT) y = 0 - IMG_SIZE;
+			if(y < 0 - IMG_SIZE) y = FRAME_HEIGHT;
+			
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			imgSelect();
+			repaint();
+		}
+		
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) System.exit(0);
+		else if(e.getKeyCode() == KeyEvent.VK_LEFT) { // 왼쪽
+			sel = 0;
+			mx = -10;
+			my = 0;
+		}else if(e.getKeyCode() == KeyEvent.VK_RIGHT) { // 오른쪽
+			sel = 2;
+			mx = +10;
+			my = 0;
+		}else if(e.getKeyCode() == KeyEvent.VK_UP) { // 위쪽
+			sel = 4;
+			mx = 0;
+			my = -10;
+		}else if(e.getKeyCode() == KeyEvent.VK_DOWN) { // 아래쪽
+			sel = 6;
+			mx = 0;
+			my = +10;
+		}
+		
+	}
+	
+	public void imgSelect() {
+		img_x = 0 + (IMG_SIZE * sel);
+		img_y = 0;
+		img_width = img_x + IMG_SIZE;
+		img_height = IMG_SIZE;
+	}
+	
+	public void imgMove(int move_x, int move_y) {
+		x += move_x;
+		y += move_y;
+	}
+	
+	public void imgReset() {
+		x = (int)(getWidth()+IMG_SIZE)/2;
+		y = (int)(getHeight()+IMG_SIZE)/2;
+		mx = 0;
+		my = 0;
+		sel = 2;
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+	}
+
+	
+	public static void main(String[] args) {
+		new Packman();
+	}
+}
+

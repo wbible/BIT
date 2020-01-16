@@ -1,0 +1,30 @@
+package io;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+public class MenuPane extends JMenuBar {
+	private JMenu[] menu;
+	
+	public JMenu[] getMenu() {
+		return menu;
+	}
+
+	public MenuPane() {
+		String[] str_menu = {"파일", "편집", "보기"};
+		menu = new JMenu[str_menu.length];
+
+		String[][] str_item = {{"새로만들기", "열기", "저정", "끝내기"},
+								{"잘라내기", "붙여넣기", "", ""},
+								{"1", "2", "3", "4"}};
+		for(int i = 0; i < menu.length; i++) {
+			menu[i] = new JMenu(str_menu[i]);
+			add(menu[i]);
+			for(int j = 0; j < str_item[i].length; j++) {
+				menu[i].add(new JMenuItem(str_item[i][j]));
+			}
+		}
+		
+	}
+}

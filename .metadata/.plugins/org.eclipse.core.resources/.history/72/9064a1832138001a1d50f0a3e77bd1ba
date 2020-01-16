@@ -1,0 +1,12 @@
+package network;
+
+public class ProtocolServer {
+	
+	public ProtocolServer() {
+		
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+}

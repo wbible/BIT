@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;TF_GAP&apos; in &apos;interface_1.Login&apos; to &apos;V_GAP&apos;&#x0D;&#x0A;- Original project: &apos;10_interface&apos;&#x0D;&#x0A;- Original element: &apos;interface_1.Login.TF_GAP&apos;&#x0D;&#x0A;- Renamed element: &apos;interface_1.Login.V_GAP&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;TF_GAP&apos;" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;interface_1{Login.java[Login^TF_GAP" name="V_GAP" references="true" setter="false" stamp="1578277304371" textual="false" version="1.0"/>
+</session>

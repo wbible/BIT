@@ -1,0 +1,16 @@
+package io;
+
+public class PersonDTO {
+	private String name;
+	private int age;
+	private double height;
+	
+	public PersonDTO(String name, int age, double height) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.height = height;
+	}
+	
+	
+}

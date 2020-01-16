@@ -1,0 +1,142 @@
+package collection;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class SungJukService {
+	private ArrayList<SungJukDTO> list;
+	
+	public SungJukService() {
+		list = new ArrayList<SungJukDTO>();
+	}
+	
+	public void menu() {
+		String dash = "*****************";
+		String[] strMenu = {" 1. 입력", " 2. 출력", " 3. 검색", " 4. 삭제", " 5. 정렬", " 6. 끝"};
+		Scanner scan = new Scanner(System.in);
+		String input = "";
+		
+		while(true) {
+			System.out.println(dash);
+			for(String item : strMenu) System.out.println(item);
+			System.out.println(dash);
+			
+			System.out.print("번호 : ");
+			while(!(input = scan.nextLine()).matches("[1-6]")) {
+				System.out.println("1~6중에 선택하세요.");
+				System.out.print("번호 : ");
+			}
+			if (input.equals("1")) insertArticle(scan);
+			else if (input.equals("2")) printArticle();
+			else if (input.equals("3")) searchArticle(scan);
+			else if (input.equals("4")) deleteArticle(scan);
+			else if (input.equals("5")) sortArticle(scan);
+			else break;
+		}
+		scan.close();
+	}
+	
+	public void print_title() {
+		System.out.println("번호	이름	국어	영어	수학	총점	평균");
+	}
+	
+	public void insertArticle(Scanner scan) {
+		SungJukDTO s = new SungJukDTO();
+		
+		Iterator<SungJukDTO> it;
+		boolean isDuplicated;
+		
+		while(true) {
+			System.out.print("번호 입력 :");
+			s.setId(scan.nextInt());
+			isDuplicated = false;
+			it = list.iterator();
+			while (it.hasNext()) {
+				if (it.next().getId() == s.getId()) {
+					isDuplicated = true;
+					System.out.println("중복된 번호입니다.");
+					break;
+				}
+			} 
+			if(!isDuplicated) break;
+		}
+		scan.nextLine();
+		
+		System.out.print("이름 입력 :");
+		s.setName(scan.nextLine());
+		
+		System.out.print("국어입력 :");
+		s.setKor(scan.nextInt());
+		System.out.print("영어입력 :");
+		s.setEng(scan.nextInt());
+		System.out.print("수학입력 :");
+		s.setMath(scan.nextInt());
+		scan.nextLine();
+		s.calc();
+		list.add(s);
+		System.out.println("성공적으로 등록되었습니다.");
+	}
+	
+	public void printArticle() {
+		if(list.size()==0) {
+			System.out.println("출력할 학생 데이터가 없습니다.");
+			return;
+		}
+		print_title();
+		for(SungJukDTO data : list) {
+			System.out.println(data);
+		}
+	}
+	
+	public void searchArticle(Scanner scan) {
+		System.out.print("검색 할 이름 입력 : ");
+		String input = scan.nextLine();
+		SungJukDTO s = new SungJukDTO();
+		s.setName(input);
+		
+		print_title();
+		if(list.indexOf(s) != -1) {
+			list.stream().filter(d -> d.equals(s)).forEach(a-> System.out.println(a));
+		}else System.out.println("찾고자 하는 이름이 없습니다.");
+	}
+	
+	public void deleteArticle(Scanner scan) {
+		System.out.print("삭제 할 이름 입력 : ");
+		String input = scan.nextLine();
+		SungJukDTO s = new SungJukDTO();
+		s.setName(input);
+		if(list.indexOf(s) != -1) {
+			while(list.indexOf(s) != -1) {
+				list.remove(s);
+			}
+		}else System.out.println("찾고자 하는 이름이 없습니다.");
+	}
+	
+	public void sortArticle(Scanner scan) {
+		System.out.println("1. 이름으로 오름차순");
+		System.out.println("2. 총점으로 내림차순");
+		System.out.println("3. 이전메뉴");
+		System.out.print("번호 입력 : ");
+		String input = "";
+		while(!(input = scan.nextLine()).matches("[1-3]")) {
+			System.out.println("1~3중에 선택하세요.");
+			System.out.print("번호 입력 : ");
+		}
+		
+		if (input.equals("1")) Collections.sort(list);
+		else if (input.equals("2")) {
+			list.sort(new Comparator<SungJukDTO>() {
+				@Override
+				public int compare(SungJukDTO o1, SungJukDTO o2) {
+					if (o2.getTotal() > o1.getTotal()) return 1;
+					else if (o2.getTotal() < o1.getTotal()) return -1;
+					else return 0;
+				}
+			});
+		}
+	}
+	
+}

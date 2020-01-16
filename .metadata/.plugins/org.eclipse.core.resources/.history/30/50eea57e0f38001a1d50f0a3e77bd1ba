@@ -1,0 +1,16 @@
+package network;
+
+import java.net.Socket;
+
+public class ProtocolClient {
+	private Socket socket;
+	
+	public ProtocolClient() {
+		socket = new Socket("¼­¹öIP", port);
+		
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+}

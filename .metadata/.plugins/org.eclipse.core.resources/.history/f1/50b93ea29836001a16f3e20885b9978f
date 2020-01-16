@@ -1,0 +1,25 @@
+package io;
+
+public class ScoreDTO {
+	private String hak, name;
+	private int kor, eng, math, tot;
+	private double avg;
+	
+	public ScoreDTO() {
+		
+	}
+
+	public ScoreDTO(String hak, String name, int kor, int eng, int math) {
+		super();
+		this.hak = hak;
+		this.name = name;
+		this.kor = kor;
+		this.eng = eng;
+		this.math = math;
+	}
+	
+	public void calc() {
+		tot = kor + eng + math;
+	}
+	
+}

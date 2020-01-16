@@ -1,0 +1,43 @@
+package thread;
+
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.util.Date;
+
+public class Racer extends Canvas implements Runnable{
+	private String name;
+	private Image img;
+	private int x, y;
+	private Date date;
+	
+	public Racer(String name) {
+//		setBackground(new Color((int)(Math.random()*256), (int)(Math.random()*256),(int)(Math.random()*256)));
+		this.name = name;
+		img = Toolkit.getDefaultToolkit().getImage("horse.gif");
+	}
+	
+	@Override
+	public void paint(Graphics g) {
+		g.drawLine(0, getHeight()/2, getWidth(), getHeight()/2);
+		g.drawImage(img, x, y, 50, this.getHeight(), this);
+	}
+
+	@Override
+	public void run() {
+		for(int i = 0; i < getWidth()+10; i += (int)(Math.random()*10)) {
+			x = i;
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+//		repaint();
+		date = new Date();
+	}
+
+	
+}

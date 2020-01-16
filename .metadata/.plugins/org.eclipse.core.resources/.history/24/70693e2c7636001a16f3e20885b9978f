@@ -1,0 +1,7 @@
+package io;
+
+import javax.swing.JMenuBar;
+
+public class MenuPane extends JMenuBar {
+	
+}

@@ -1,0 +1,21 @@
+package thread;
+
+public class ATMTest implements Runnable{
+	private long depositeMoney = 100000; // 잔액
+	private long balance; // 찾고자 하는 금액
+
+	@Override
+	public void run() {
+		System.out.println(getClass());
+		
+	}
+
+	public static void main(String[] args) {
+		ATMTest atm = new ATMTest();
+		Thread mom = new Thread(atm);
+		Thread son = new Thread(atm);
+		
+		mom.start();
+		son.start();
+	}
+}

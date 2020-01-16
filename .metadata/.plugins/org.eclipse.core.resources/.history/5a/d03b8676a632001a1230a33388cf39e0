@@ -1,0 +1,45 @@
+package thread;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class ATMTest implements Runnable{
+	private long depositeMoney = 100000; // 잔액
+	private long balance; // 찾고자 하는 금액
+
+	@Override
+	public synchronized void run() {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println(Thread.currentThread().getName()+"님 안녕하세요.");
+		
+		System.out.print("찾고자 하는 금액 입력: ");
+		try {
+			balance = Long.parseLong(br.readLine());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+	}
+	
+	public void withDraw() {
+		
+		if (balance % 10000 > 0) System.out.println("만원 단위로 입력하세요.");
+		else if (balance > depositeMoney) {
+			System.out.println("잔액 초과");
+			System.out.println("잔액은 " + depositeMoney + "입니다.");
+		}else {
+			depositeMoney -= balance;
+		}
+	}
+
+	public static void main(String[] args) {
+		ATMTest atm = new ATMTest();
+		Thread mom = new Thread(atm, "엄마");
+		Thread son = new Thread(atm, "아들");
+		
+		mom.start();
+		son.start();
+		
+	}
+}

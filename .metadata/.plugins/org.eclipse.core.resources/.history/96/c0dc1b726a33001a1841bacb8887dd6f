@@ -1,0 +1,19 @@
+package swing;
+
+import java.util.ArrayList;
+
+public class JTableEx2 {
+	private ArrayList<PersonDTO> list;
+	
+	public JTableEx2() {
+		list = new ArrayList<PersonDTO>();
+		list.add(new PersonDTO("hong", "È«±æµ¿", "111", "010-123-1234"));
+		list.add(new PersonDTO("conan", "ÄÚ³­", "333", "010-777-7777"));
+		
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+
+}

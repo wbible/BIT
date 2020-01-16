@@ -1,0 +1,77 @@
+package swing;
+
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class Timer extends JFrame implements ActionListener, Runnable{
+
+	private JButton btn_start, btn_stop;
+	private JLabel lb_main;
+	private int t;
+	private boolean running = false;
+	
+	public final int MAX = 20;
+	
+	public Timer() {
+		super("Timer");
+		setBounds(500, 200, 300, 300);
+		
+		Container c = getContentPane();
+		lb_main = new JLabel();
+		lb_main.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 40));
+		c.add("Center", lb_main);
+		
+		JPanel p_btn = new JPanel();
+		p_btn.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		c.add("South", p_btn);
+		
+		btn_start = new JButton("Ω√¿€");
+		btn_stop = new JButton("∏ÿ√„");
+		p_btn.add(btn_start); p_btn.add(btn_stop);
+		btn_stop.setEnabled(false);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btn_start) {
+			btn_start.setEnabled(false);
+			btn_stop.setEnabled(true);
+			running = true;
+			new Thread(this).start(); 
+		}else {
+			btn_start.setEnabled(true);
+			btn_stop.setEnabled(false);
+			running = false;
+		}
+	}
+
+	@Override
+	public void run() {
+		if(t == MAX) return;
+		for(int i = 1; i <= MAX; i++) {
+			
+			lb_main.setText(i+"");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	public static void main(String[] args) {
+		new Timer();
+	}
+}

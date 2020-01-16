@@ -1,0 +1,21 @@
+package thread;
+
+public class SingleTon {
+	private int num = 3;
+	
+	public static void main(String[] args) {
+		SingleTon aa = new SingleTon();
+		aa.num++;
+		System.out.println("aa = " + aa);
+		System.out.println("num = " + aa.num);
+		System.out.println();
+		
+		SingleTon bb = new SingleTon();
+		bb.num++;
+		System.out.println("bb = " + aa);
+		System.out.println("num = " + bb.num);
+		System.out.println();
+		
+	}
+
+}

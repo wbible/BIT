@@ -1,0 +1,30 @@
+package swing;
+
+import java.util.ArrayList;
+import java.util.Vector;
+import java.util.stream.Stream;
+
+import javax.swing.table.DefaultTableModel;
+
+public class JTableEx2 {
+	private ArrayList<PersonDTO> list;
+	private Vector<String> vector;
+	private DefaultTableModel model;
+	
+	public JTableEx2() {
+		list = new ArrayList<PersonDTO>();
+		list.add(new PersonDTO("hong", "홍길동", "111", "010-123-1234"));
+		list.add(new PersonDTO("conan", "코난", "333", "010-777-7777"));
+		
+		//제목
+		vector = new Vector<String>();
+		String[] title = {"아이디", "이름", "비밀번호", "연락처"};
+		Stream.of(title).forEach(s -> vector.add(s));
+		
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+
+}

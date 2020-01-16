@@ -1,0 +1,38 @@
+package swing;
+
+import java.awt.Container;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class Timer extends JFrame {
+
+	private JButton btn_start, btn_stop;
+	
+	public Timer() {
+		super("Timer");
+		setBounds(500, 200, 300, 300);
+		
+		Container c = getContentPane();
+		JLabel lb_main = new JLabel();
+		c.add("Center", lb_main);
+		
+		JPanel p_btn = new JPanel();
+		p_btn.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		c.add("South", p_btn);
+		
+		btn_start = new JButton("Ω√¿€");
+		btn_stop = new JButton("∏ÿ√„");
+		p_btn.add(btn_start); p_btn.add(btn_stop);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		new Timer();
+	}
+
+}

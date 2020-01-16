@@ -1,0 +1,62 @@
+package swing;
+
+import java.awt.FlowLayout;
+import java.util.Vector;
+import java.util.stream.Stream;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+
+public class JListEx extends JFrame{
+
+	public JListEx() {
+		super("JList Test");
+		setLayout(new FlowLayout());
+		String[] listData = {"Hong", "Gil", "Dong", "JAVA", "JSP"};
+		JList<String> list1 = new JList<String>(listData);
+		list1.setSelectedIndex(1);
+		
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		JList<String> list2 = new JList<String>(model);
+		model.addElement("사과"); model.addElement("배");
+		model.addElement("딸기"); model.addElement("바나나");
+		list2.setSelectedIndex(1);
+		
+		Vector<String> vListData = new Vector<String>();
+		JList<String> list3 = new JList<String>(vListData);
+		JScrollPane scroll = new JScrollPane(list3);
+		String[] strList = {"축구", "야구", "농구", "배구", "테니스", "수영", "육상", "태권도", "유도"};
+		Stream.of(strList).forEach(s -> vListData.add(s));
+		
+		class Student{
+			String id, name, department;
+			public Student(String id, String name, String department) {
+				super();
+				this.id = id;
+				this.name = name;
+				this.department = department;
+			}
+			
+			@Override
+			public String toString() {
+				return name;
+			}
+
+		}
+		
+		JList list4 = new JList(new DefaultListModel<Student>());
+		list4.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//		model = (DefaultListModel<Student>) list4.getModel();
+		
+	}
+	
+	public static void main(String[] args) {
+		
+
+	}
+
+	
+}

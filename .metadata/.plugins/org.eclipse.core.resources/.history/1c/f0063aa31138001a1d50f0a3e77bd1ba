@@ -1,0 +1,30 @@
+package network;
+
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class ProtocolClient {
+	private Socket socket;
+	
+	public ProtocolClient() {
+		try {
+			socket = new Socket("192.168.0.59", 9500);
+//			socket.
+			
+		} catch (UnknownHostException e) {
+			System.out.println("서버를 찾을 수 없습니다.");
+			e.printStackTrace();
+			System.exit(0);
+		} catch (IOException e) {
+			System.out.println("서버와 연결할 수 없습니다.");
+			e.printStackTrace();
+			System.exit(0);
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+}

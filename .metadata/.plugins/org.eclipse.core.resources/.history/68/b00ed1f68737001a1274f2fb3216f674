@@ -1,0 +1,52 @@
+package sudoku;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Omok extends JFrame{
+	private int width;
+	
+	public Omok() {
+		
+		JPanel p_main = new JPanel();
+		p_main.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		
+		p_main.setLayout(new GridLayout(18,18));
+		
+		JLabel[][] lb_ar = new JLabel[18][18];
+		for(int i = 0; i< 18; i++) {
+			for(int j = 0; j < 18; j++) {
+				lb_ar[i][j] = new JLabel();
+				lb_ar[i][j].setOpaque(true);
+				lb_ar[i][j].setBackground(new Color(100,240,240));
+				lb_ar[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+				p_main.add(lb_ar[i][j]);
+			}
+		}
+		
+		Container c = getContentPane();
+		c.add("Center", p_main);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(900, 200, 500, 500);
+		width = getWidth();
+		setVisible(true);
+		
+		System.out.println(lb_ar[0][2].getX());		
+	}
+	
+	public static void main(String[] args) {
+		new Omok();
+
+	}
+
+}

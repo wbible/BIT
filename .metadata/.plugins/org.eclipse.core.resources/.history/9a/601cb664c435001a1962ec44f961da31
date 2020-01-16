@@ -1,0 +1,134 @@
+package sudoku;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+
+public class NumLabel extends JLabel implements MouseListener {
+	
+	private int group_s, group_h, group_v;
+	private NumLabel[][] p_ar;
+	private int answer, input;
+	
+	public int getGroup_s() {
+		return group_s;
+	}
+
+	public int getGroup_h() {
+		return group_h;
+	}
+
+	public int getGroup_v() {
+		return group_v;
+	}
+
+	private Color color_main = new Color(52,72,97);
+	private Color color_mouseover = new Color(221,238,255);
+	private Color color_active = new Color(187,222,251);
+	private Color color_sameGroup = new Color(226,231,237);
+	private Color color_sameNum = new Color(203,219,237);
+	private Color color_wrong = new Color(247,207,214);
+	
+	private Font font_num = new Font("¸¼Àº °íµñ", Font.BOLD, 25);
+	
+	private static NumLabel lb_active, lb_old;
+	
+	public NumLabel(NumLabel[][] p_ar, int group_s, int group_h, int group_v) {
+		this.p_ar = p_ar;
+		this.group_s = group_s;
+		this.group_h = group_h;
+		this.group_v = group_v;
+		setBorder(BorderFactory.createLineBorder(color_main, 1));
+		setOpaque(true);
+		setBackground(Color.WHITE);
+		setForeground(color_main);
+		setFont(font_num);
+		addMouseListener(this);
+	}
+	
+	public void setAnswer(int answer) {
+		this.answer = answer;
+	}
+	
+	public void setInput(int input) {
+		this.input = input;
+		setText(input+"");
+		if(answer == input) {
+			setForeground(color_main);
+		}else {
+			setForeground(color_wrong);
+		}
+	}
+	
+	public void printGroup(NumLabel lb) {
+		System.out.printf("h: %d, v: %d, s: %d\n", lb.getGroup_h(), lb.getGroup_v(), lb.getGroup_s());
+	}
+	
+	public boolean isSameGroup(NumLabel lb) {
+		if (lb != null) {
+			return group_h == lb.getGroup_h() || group_s == lb.getGroup_s() || group_v == lb.getGroup_v()
+					? true : false;
+		}
+		return false;
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(lb_active != null) {
+			lb_old = lb_active;
+			lb_old.setBackground(Color.WHITE);
+		}
+		lb_active = (NumLabel) e.getSource();
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 9; j++) {
+				p_ar[i][j].setBackground(
+						p_ar[i][j].getGroup_h() == group_h ||
+						p_ar[i][j].getGroup_s() == group_s || 
+						p_ar[i][j].getGroup_v() == group_v ? color_sameNum : Color.WHITE);
+			}
+		}
+		lb_active.setBackground(color_active);
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		NumLabel lb = (NumLabel) e.getSource();
+		if(lb != lb_active && !lb.isSameGroup(lb_active)) {
+			lb.setBackground(color_mouseover);
+		}
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		NumLabel lb = (NumLabel) e.getSource();
+		if(lb != lb_active && !lb.isSameGroup(lb_active))
+			lb.setBackground(Color.WHITE);
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof NumLabel) {
+			if (getText().equals(((NumLabel) o).getText())) return true;
+		}
+		return false;
+	}
+	
+}

@@ -1,0 +1,62 @@
+package io;
+
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+public class TryNotepad extends JFrame{
+	private JTextArea ta;
+	private MenuPane menu;
+	
+	public TryNotepad() {
+		setBounds(600, 200, 700, 500);
+		setTitle("¸Þ¸ðÀå");
+		
+		Container c = getContentPane();
+		ta = new JTextArea();
+		JScrollPane scroll = new JScrollPane(ta);
+		c.add("Center", scroll);
+		
+		menu = new MenuPane();
+		setJMenuBar(menu);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+		event();
+	}
+	
+	public void event() {
+		ActionListener action_new = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {ta.setText(" "); ta.setText("");}
+		};
+		ActionListener action_close = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {System.exit(0);}
+		};
+		ActionListener action_save = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {System.exit(0);}
+		};
+		ActionListener action_copy = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {System.exit(0);}
+		};
+		
+		System.out.println(menu.getItems().get(0).getText());
+		menu.getItems().get(0).addActionListener(action_new);
+		menu.getItems().get(3).addActionListener(action_close);
+		
+		
+	}
+	
+	public static void main(String[] args) {
+		new TryNotepad();
+	}
+
+}

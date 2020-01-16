@@ -1,0 +1,36 @@
+package swing;
+
+import javax.swing.JFrame;
+import javax.swing.table.AbstractTableModel;
+
+class JTable extends AbstractTableModel{
+
+	@Override
+	public int getColumnCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getRowCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}
+
+
+public class JTableEx extends JFrame{
+
+	public static void main(String[] args) {
+		
+
+	}
+
+}

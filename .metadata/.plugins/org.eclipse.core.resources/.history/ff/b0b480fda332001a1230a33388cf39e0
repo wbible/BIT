@@ -1,0 +1,18 @@
+package thread;
+
+public class ATMTest implements Runnable{
+	private long depositeMoney = 100000; // 잔액
+	private long balance; // 찾고자 하는 금액
+
+	@Override
+	public void run() {
+		
+		
+	}
+
+	public static void main(String[] args) {
+		Thread mom = new Thread(new ATMTest());
+		Thread son = new Thread(new ATMTest());
+		
+	}
+}

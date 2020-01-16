@@ -1,0 +1,64 @@
+package io;
+
+import java.util.Vector;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+public class ScoreImpl implements Score {
+	private ScoreForm sf;
+	private DefaultTableModel model;
+	private Vector<ScoreDTO> v_dto = new Vector<ScoreDTO>();
+	
+	public ScoreImpl(ScoreForm sf) {
+		this.sf = sf;
+		model = sf.getTableModel();
+	}
+	
+	@Override
+	public void input(ScoreDTO dto) {
+		dto.calc();
+		v_dto.add(dto);
+		JOptionPane.showMessageDialog(sf, dto.getName()+"학생의 데이터가 추가되었습니다.");
+	}
+
+	@Override
+	public void print(JTable output) {
+		Vector<String> v;
+		for(ScoreDTO d : v_dto) {			
+			v = new Vector<String>();
+			for(int i = 0; i < 7; i++) {
+				v.add(d.getDataByIndex(i));
+				System.out.println(d.getDataByIndex(i));
+			}
+			model.addRow(v);
+		}
+		output.setModel(model);
+	}
+
+	@Override
+	public void search(JTable output) {
+		
+		
+	}
+
+	@Override
+	public void tot_desc() { // 순위
+		
+		
+	}
+
+	@Override
+	public void save() {
+		
+		
+	}
+
+	@Override
+	public void load() {
+		
+		
+	}
+
+}

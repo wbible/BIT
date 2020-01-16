@@ -1,0 +1,20 @@
+package network;
+
+import javax.swing.JFrame;
+
+public class ChatClient extends JFrame {
+
+	public ChatClient() {
+		
+		
+		setBounds(800, 100, 500, 500);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		new ChatClient();
+
+	}
+
+}

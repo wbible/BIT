@@ -1,0 +1,16 @@
+package io;
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
+public class ObjectMain {
+
+	public static void main(String[] args) {
+		PersonDTO dto = new PersonDTO("ȫ�浿", 25, 185.3);
+		
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("result2.txt"));
+		
+		
+	}
+
+}

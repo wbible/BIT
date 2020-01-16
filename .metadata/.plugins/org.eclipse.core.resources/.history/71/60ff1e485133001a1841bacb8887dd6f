@@ -1,0 +1,28 @@
+package swing;
+
+import java.awt.FlowLayout;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JList;
+
+public class JListEx extends JFrame{
+
+	public JListEx() {
+		super("JList Test");
+		setLayout(new FlowLayout());
+		String[] listData = {"Hong", "Gil", "Dong", "JAVA", "JSP"};
+		JList<String> list1 = new JList<String>(listData);
+		list1.setSelectedIndex(1);
+		
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		
+
+	}
+
+}

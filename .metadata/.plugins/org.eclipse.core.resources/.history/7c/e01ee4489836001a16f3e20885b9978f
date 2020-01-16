@@ -1,0 +1,7 @@
+package io;
+
+public class ScoreDTO {
+	private String index;
+	
+	
+}
